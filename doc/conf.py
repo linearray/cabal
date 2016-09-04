@@ -7,10 +7,10 @@
 #
 import sys
 import os
+import sphinx_rtd_theme
 
 # Support for :base-ref:, etc.
 sys.path.insert(0, os.path.abspath('.'))
-#from ghc_config import extlinks, version
 version = "1.25"
 
 extensions = ['sphinx.ext.extlinks']
@@ -28,7 +28,7 @@ release = version  # The full version, including alpha/beta/rc tags.
 
 # Syntax highlighting
 highlight_language = 'haskell'
-pygments_style = 'tango'
+#pygments_style = 'tango'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -36,13 +36,19 @@ exclude_patterns = ['.build', "*.gen.rst"]
 
 # -- Options for HTML output ---------------------------------------------
 
+# on_rtd is whether we are on readthedocs.org, this line of code grabbed from docs.readthedocs.org
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+
+if not on_rtd:  # only import and set the theme if we're building docs locally
+    import sphinx_rtd_theme
+    html_theme = 'sphinx_rtd_theme'
+    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
-html_title = "Cabal <release> Users Guide"
-html_short_title = "Cabal %s Users Guide" % release
-html_theme_path = ['.']
-html_theme = 'ghc-theme'
-html_logo = None
+html_title = "Cabal <release> User's Guide"
+html_short_title = "Cabal %s User's Guide" % release
+html_logo = 'images/Cabal-dark.png'
 html_static_path = ['images']
 # Convert quotes and dashes to typographically correct entities
 html_use_smartypants = True
@@ -57,7 +63,7 @@ html_show_copyright = True
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'GHCUsersGuide'
+htmlhelp_basename = 'CabalUsersGuide'
 
 
 # -- Options for LaTeX output ---------------------------------------------
