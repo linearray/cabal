@@ -318,7 +318,7 @@ cabal new-freeze
 records all of the versions and flags which that are picked by the
 solver under the current index and flags. A ``cabal.project.freeze``
 file has the same syntax as ``cabal.project`` and looks something like
-this::
+this:
 
 ::
 
@@ -326,7 +326,8 @@ this::
                  HTTP +warp-tests -warn-as-error -network23 +network-uri -mtl1 -conduit10,
                  QuickCheck ==2.9.1,
                  QuickCheck +templatehaskell,
-                 ...
+                 -- etc...
+
 
 For end-user executables, it is recommended that you distribute the
 ``cabal.project.freeze`` file in your source repository so that all
@@ -339,29 +340,29 @@ Unsupported commands
 
 The following commands are not currently supported:
 
-``cabal new-test``
-(`#3638 <https://github.com/haskell/cabal/issues/3638>`__)
+``cabal new-test`` (`#3638 <https://github.com/haskell/cabal/issues/3638>`__)
     Workaround: run the test executable directly (see `Where are my
     build products <#where-are-my-build-products>`__?)
-``cabal new-bench``
-(`#3638 <https://github.com/haskell/cabal/issues/3638>`__)
+
+``cabal new-bench`` (`#3638 <https://github.com/haskell/cabal/issues/3638>`__)
     Workaround: run the benchmark executable directly (see `Where are my
     build products <#where-are-my-build-products>`__?)
-``cabal new-run``
-(`#3638 <https://github.com/haskell/cabal/issues/3638>`__)
+
+``cabal new-run`` (`#3638 <https://github.com/haskell/cabal/issues/3638>`__)
     Workaround: run the executable directly (see `Where are my build
     products <#where-are-my-build-products>`__?)
+
 ``cabal new-exec``
     Workaround: if you wanted to execute GHCi, consider using
     ``cabal new-repl`` instead. Otherwise, use ``-v`` to find the list
     of flags GHC is being invoked with and pass it manually.
-``cabal new-haddock``
-(`#3535 <https://github.com/haskell/cabal/issues/3535>`__)
+
+``cabal new-haddock`` (`#3535 <https://github.com/haskell/cabal/issues/3535>`__)
     Workaround: run
     ``cabal act-as-setup -- haddock --builddir=dist-newstyle/build/pkg-0.1``
     (or execute the Custom setup script directly).
-``cabal new-install``
-(`#3737 <https://github.com/haskell/cabal/issues/3737>`__)
+
+``cabal new-install`` (`#3737 <https://github.com/haskell/cabal/issues/3737>`__)
     Workaround: no good workaround at the moment. (But note that you no
     longer need to install libraries before building!)
 
@@ -397,6 +398,7 @@ following sources (later entries override earlier ones):
 
 4. ``cabal.project.local`` (the output of ``cabal new-configure``)
 
+
 Specifying the local packages
 -----------------------------
 
@@ -405,6 +407,7 @@ project are:
 
 ``packages:`` *package location list* (space or comma separated,
 default: ``./*.cabal``)
+
     Specifies the list of package locations which contain the local
     packages to be built by this project. Package locations can take the
     following forms:
@@ -428,8 +431,7 @@ default: ``./*.cabal``)
     There is no command line variant of this field; see
     `#3585 <https://github.com/haskell/cabal/issues/3585>`__.
 
-``optional-packages:`` *package location list* (space or comma
-separated, default: ``./*/*.cabal``)
+``optional-packages:`` *package location list* (space or comma-separated, default: ``./*/*.cabal``)
     Like ``packages:``, specifies a list of package locations containing
     local packages to be built. Unlike ``packages:``, if we glob for a
     package, it is permissible for the glob to match against zero
@@ -510,6 +512,7 @@ package, and thus apply globally:
     packages.
 
     The command line variant of this field is ``--keep-going``.
+
 
 Solver configuration options
 ----------------------------
@@ -599,8 +602,7 @@ The following settings control the behavior of the dependency solver:
     ``--preference="pkg >= 2.0"``; to specify multiple preferences, pass
     the flag multiple times.
 
-``allow-newer:`` ``none`` *or* ``all`` *or* *list of scoped package
-names* (space or comma separated, default: ``none``)
+``allow-newer:`` ``none`` *or* ``all`` *or* *list of scoped package names* (space or comma separated, default: ``none``)
     Allow the solver to pick an newer version of some packages than
     would normally be permitted by than the ``build-depends`` bounds of
     packages in the install plan. This option may be useful if the
@@ -640,8 +642,7 @@ names* (space or comma separated, default: ``none``)
     The command line variant of this field is ``--allow-newer=bar``. A
     bare ``--allow-newer`` is equivalent to ``--allow-newer=all``.
 
-``allow-older:`` ``none`` *or* ``all`` *or* *list of scoped package
-names* (space or comma separated, default: ``none``)
+``allow-older:`` ``none`` *or* ``all`` *or* *list of scoped package names* (space or comma separated, default: ``none``)
     Like ``allow-newer``, but applied to lower bounds rather than upper
     bounds.
 
@@ -789,8 +790,7 @@ feature was added.
     The command line variant of this flag is ``--configure-option=arg``,
     which can be specified multiple times to pass multiple options.
 
-``compiler:`` ``ghc`` *or* ``ghcjs`` *or* ``jhc`` *or* ``lhc`` *or*
-``uhc`` *or* ``haskell-suite`` (default: ``ghc``)
+``compiler:`` ``ghc`` *or* ``ghcjs`` *or* ``jhc`` *or* ``lhc`` *or* ``uhc`` *or* ``haskell-suite`` (default: ``ghc``)
     Specify which compiler toolchain to be used. This is independent of
     ``with-compiler``, because the choice of toolchain affects Cabal's
     build logic.
@@ -815,8 +815,7 @@ feature was added.
     The command line variant of this flag is ``--enable-benchmarks`` and
     ``--disable-benchmarks``.
 
-``extra-prog-path:`` *paths* (newline or comma separated, added in Cabal
-1.18)
+``extra-prog-path:`` *paths* (newline or comma separated, added in Cabal 1.18)
     A list of directories to search for extra required programs. Most
     users should not need this, as programs like ``happy`` and ``alex``
     will automatically be installed and added to the path. This can be
@@ -839,7 +838,7 @@ feature was added.
     The command line variant of this flag is ``--run-tests``.
 
 Object code options
-~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^
 
 ``debug-info:`` *boolean* (default: False, added in Cabal 1.22)
     If the compiler (e.g., GHC 7.10 and later) supports outputing OS
@@ -888,7 +887,7 @@ Object code options
     ``--enable-library-stripping`` and ``--disable-library-stripping``.
 
 Executable options
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^
 
 ``program-prefix:`` *prefix*
     [STRIKEOUT:Prepend *prefix* to installed program names.] (Currently
@@ -918,7 +917,7 @@ Executable options
     ``--program-suffix='$version'``.
 
 Dynamic linking options
-~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^
 
 ``shared:`` *boolean* (default: False)
     Build shared library. This implies a separate compiler run to
@@ -954,7 +953,7 @@ Dynamic linking options
     The command line variant of this flag is ``--relocatable``.
 
 Foreign function interface options
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ``extra-include-dirs:`` *directories* (comma or newline separated list)
     An extra directory to search for C header files. You can use this
@@ -979,8 +978,7 @@ Foreign function interface options
     The command line variant of this flag is ``--extra-lib-dirs=DIR``,
     which can be specified multiple times.
 
-``extra-framework-dirs:`` *directories* (comma or newline separated
-list)
+``extra-framework-dirs:`` *directories* (comma or newline separated list)
     An extra directory to search for frameworks (OS X only).
 
     You might need to use this flag if you have standard system
@@ -998,7 +996,7 @@ list)
     times.
 
 Profiling options
-~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^
 
 ``profiling:`` *boolean* (default: False, added in Cabal 1.21)
     Build libraries and executables with profiling enabled (for
@@ -1030,8 +1028,7 @@ Profiling options
     The command line variant of this flag is
     ``--enable-library-profiling`` and ``--disable-library-profiling``.
 
-``executable-profiling:`` *boolean* (default: False, added in Cabal
-1.21)
+``executable-profiling:`` *boolean* (default: False, added in Cabal 1.21)
     Build executables with profiling enabled.
 
     The command line variant of this flag is
@@ -1081,7 +1078,7 @@ Profiling options
     ``--library-profiling-detail=none``.
 
 Coverage options
-~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^
 
 ``coverage:`` *boolean* (default: False, added in Cabal 1.21)
     Build libraries and executables (including test suites) with Haskell
@@ -1098,7 +1095,7 @@ Coverage options
     ``--enable-library-coverage`` and ``--disable-library-coverage``.
 
 Haddock options
-~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^
 
 Documentation building support is fairly sparse at the moment. Let us
 know if it's a priority for you!
@@ -1219,8 +1216,7 @@ running ``setup haddock``. (TODO: Where does the documentation get put.)
 Advanced global configuration options
 -------------------------------------
 
-``http-transport:`` ``curl`` or ``wget`` or ``powershell`` or
-``plain-http`` (default: ``curl``)
+``http-transport:`` ``curl`` or ``wget`` or ``powershell`` or ``plain-http`` (default: ``curl``)
     Set a transport to be used when making http(s) requests.
 
     The command line variant of this field is ``--http-transport=curl``.
@@ -1249,8 +1245,7 @@ Advanced global configuration options
 
     The command line variant of this flag is ``--logs-dir=DIR``.
 
-``build-summary:`` *template filepath* (default:
-``~/.cabal/logs/build.log``)
+``build-summary:`` *template filepath* (default: ``~/.cabal/logs/build.log``)
     [STRIKEOUT:The file to save build summaries. Valid variables which
     can be used in the path are ``$pkgid``, ``$compiler``, ``$os`` and
     ``$arch``.] Not implemented yet.
@@ -1274,7 +1269,7 @@ Undocumented fields: ``root-cmd``, ``symlink-bindir``, ``build-log``,
 ``offline``.
 
 Advanced solver options
-~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^
 
 Most users generally won't need these.
 
